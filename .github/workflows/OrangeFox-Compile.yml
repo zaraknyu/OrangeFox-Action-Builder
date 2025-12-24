@@ -32,7 +32,7 @@ on:
       COMMON_TREE:
         description: 'COMMON_TREE_URL (if no common tree, leave blank)'
         required: false
-        COMMON_TREE_BRANCH:
+      COMMON_TREE_BRANCH:
         description: 'OrangeFox COMMON Tree Branch'
         required: true
         default: 'android-12.1'
