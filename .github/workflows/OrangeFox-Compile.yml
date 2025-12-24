@@ -29,9 +29,13 @@ on:
         description: 'Specify your Device Path'
         required: true
         default: 'device/realme/nashc'
-      COMMON_TREE_URL:
+      COMMON_TREE:
         description: 'COMMON_TREE_URL (if no common tree, leave blank)'
         required: false
+        COMMON_TREE_BRANCH:
+        description: 'OrangeFox COMMON Tree Branch'
+        required: true
+        default: 'android-12.1'
       COMMON_PATH:
         description: 'COMMON_PATH (if no common tree, leave blank)'
         required: false
