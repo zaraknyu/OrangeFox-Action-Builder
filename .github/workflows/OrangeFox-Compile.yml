@@ -29,6 +29,12 @@ on:
         description: 'Specify your Device Path'
         required: true
         default: 'device/realme/nashc'
+      COMMON_TREE_URL:
+        description: 'COMMON_TREE_URL (if no common tree, leave blank)'
+        required: false
+      COMMON_PATH:
+        description: 'COMMON_PATH (if no common tree, leave blank)'
+        required: false
       DEVICE_NAME:
         description: 'Specify your Device Codename'
         required: true
@@ -88,6 +94,13 @@ jobs:
         cd ${{ inputs.DEVICE_PATH }}
         echo "COMMIT_ID=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
+      - name: Clone Common Tree
+      run: |
+        cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}
+        git clone ${{ inputs.COMMON_TREE }} -b ${{ inputs.COMMON_TREE_BRANCH }} ./${{ inputs.COMMON_PATH }}
+        cd ${{ inputs.COMMON_PATH }}
+        echo "COMMIT_ID=$(git rev-parse HEAD)" >> $GITHUB_ENV
+
     - name: Building OrangeFox
       run: |
         cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}
@@ -107,6 +120,12 @@ jobs:
           DEVICE_TREE_URL="${DEVICE_TREE_URL%.git}"
         fi
         echo "DEVICE_TREE_URL=${DEVICE_TREE_URL}" >> $GITHUB_ENV
+
+          COMMON_TREE_URL="${{ inputs.COMMON_TREE }}"
+        if [[ "${COMMON_TREE_URL}" == *.git ]]; then
+          COMMON_TREE_URL="${COMMON_TREE_URL%.git}"
+        fi
+        echo "COMMON_TREE_URL=${COMMON_TREE_URL}" >> $GITHUB_ENV
 
     - name: Upload to Release
       uses: softprops/action-gh-release@v2
