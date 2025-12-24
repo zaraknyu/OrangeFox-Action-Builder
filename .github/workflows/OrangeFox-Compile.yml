@@ -125,12 +125,6 @@ jobs:
         fi
         echo "DEVICE_TREE_URL=${DEVICE_TREE_URL}" >> $GITHUB_ENV
 
-          COMMON_TREE_URL="${{ inputs.COMMON_TREE }}"
-        if [[ "${COMMON_TREE_URL}" == *.git ]]; then
-          COMMON_TREE_URL="${COMMON_TREE_URL%.git}"
-        fi
-        echo "COMMON_TREE_URL=${COMMON_TREE_URL}" >> $GITHUB_ENV
-
     - name: Upload to Release
       uses: softprops/action-gh-release@v2
       with:
